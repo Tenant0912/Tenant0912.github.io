@@ -33,7 +33,14 @@ could not see a 500.00 partial payment, so it reported 2,640.00 owed instead of 
 This server is marked experimental, and Dolibarr's issue #38356 tracks its growth (191 of 666 REST methods by late October), so
 expect this to change. I will re-run it.
 
-**What this does not show.** Write tasks (3 more held-out tasks) are not run yet, and there was one run per cell, so treat small
+
+**Write tasks, added 23:50 UTC.** H8: create a customer and proposal, validate it, record a refusal, then delete both. H9: create, validate and
+pay an invoice into a named bank account. H10: create a product, find it, delete it. Results: generic 3/3. Built-in 1/3:
+it did H9, but it has no tools to validate or refuse a proposal, delete a customer, or create a product, so it left a test customer behind.
+Community 1/3: it did H10, but on H8 and H9 Dolibarr returned HTTP 500 when it created the customer. That may be my
+environment rather than the server, so I count those two as inconclusive and will re-run them.
+
+**What this does not show.** There was one run per cell, so treat small
 differences as noise. Mine is a generic server that reads the instance's own Swagger spec at runtime
 ([oapi-meta-mcp](https://github.com/Tenant0912/oapi-meta-mcp), MIT). Nothing in it is specific to Dolibarr.
 
