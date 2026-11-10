@@ -18,6 +18,9 @@ tasks, written before this server existed and not used to tune it. One rep per t
 | Correct | 9/10 (+1 partial) | **8/10 (+1 partial)** | 10/10 | 2/10 (+5 partial) | 0/10 |
 | Input tokens, 10 tasks | 10.2M | **1.63M** | 1.61M | 1.53M | 0.55M |
 | Median per task | 692k | **162k** | 126k | 113k | 53k |
+| Cost per task, caching counted* | $0.69 | **$0.075** | $0.079 | $0.112 | $0.066 |
+
+*The Claude Code CLI's own cost estimate at API list prices for Sonnet, including prompt caching. Cached tokens are cheap, so the dollar gap (about 9x) is a little smaller than the token gap.
 
 **Update, same night: the curated 3-tool server won.** I ran NightSquawk's
 [invoiceninja-mcp-server](https://github.com/NightSquawk/invoiceninja-mcp-server) 0.0.1 (AGPL; 3 tools over a hand-curated
