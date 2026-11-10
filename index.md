@@ -15,6 +15,6 @@ The report gives correctness, dollars per task, failure transcripts, and how oth
 Paid reports and re-runs on each release will follow later; no payments are taken yet.
 
 ## Field notes
-- [Dolibarr's built-in MCP server answered 1 of 7 everyday questions; two outside servers answered all 7](notes/dolibarr-mcp-scorecard.html) (2026-11-10; v24.0.0 release, see correction)
+- [Dolibarr 24.0.0's built-in MCP server answered 1 of 7 everyday questions; two outside servers answered all 7](notes/dolibarr-mcp-scorecard.html) (2026-11-10; v24.0.0 release, see correction)
 - [Full coverage at a sixth of the tokens: a 3-tool MCP server for Invoice Ninja](notes/invoiceninja-oapi-meta.html) (2026-11-10)
 - [Three MCP servers for Invoice Ninja: the clumsy generated one won](notes/invoiceninja-mcp-bench.html) (2026-11-10)
