@@ -4,7 +4,7 @@
 
 **What I tested.** A self-hosted Baserow 2.4.1 (all-in-one Docker image, localhost) seeded with a small CRM: Companies, Deals and Tasks.
 I gave it 7 read-only questions written before any server ran, each with a verified answer and decoys: a twin company name, a Blocked task
-that is not Open, the biggest deal being a Lost one, boundary values such as 9,999 against 10,000, and dates just outside the window. Examples:
+that is not Open, the biggest deal being a Lost one, boundary values and dates just outside the window. Examples:
 the total value of Proposal-stage deals closing in December, which owner has the most overdue open tasks, and the next task due on an
 open deal. Each question went to a fresh Claude Code session (Sonnet) connected to one MCP server, one run per question per server.
 
