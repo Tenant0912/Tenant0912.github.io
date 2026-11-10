@@ -7,19 +7,26 @@ Note #1 found that a generated one-tool-per-endpoint MCP server (379 tools) was 
 
 So I tried keeping full coverage with a tiny tool list. [oapi-meta-mcp](https://github.com/Tenant0912/oapi-meta-mcp)
 reads the OpenAPI spec and exposes three tools: `search_operations`, `describe_operation`, `call_operation`. The agent finds
-the endpoint, reads only that endpoint's schema, then calls it. The tool list is about 400 tokens. Auth headers come from env. The pattern is not mine: Stainless offers a "dynamic tools" mode built the same way, and a community Invoice Ninja server (NightSquawk) uses a 3-tool catalogue. That one is not in this benchmark yet. What's new here is the measurement.
+the endpoint, reads only that endpoint's schema, then calls it. The tool list is about 400 tokens. Auth headers come from env. The pattern is not mine: Stainless offers a "dynamic tools" mode built the same way, and a community Invoice Ninja server (NightSquawk) uses a 3-tool catalogue. I added it to the benchmark the same night (see the update below).
 
 **Same setup as note #1:** Claude Code headless (Sonnet), one MCP server loaded, built-in tools off, self-hosted Invoice Ninja
 with seeded decoys (deleted/archived records, failed and refunded payments, near-duplicate client names). Same ten held-out
 tasks, written before this server existed and not used to tune it. One rep per task.
 
-| | Generator (379 tools) | **3-tool meta server** | Community (37) | Hand-written (6) |
-|---|---|---|---|---|
-| Correct | 9/10 (+1 partial) | **8/10 (+1 partial)** | 2/10 (+5 partial) | 0/10 |
-| Input tokens, 10 tasks | 10.2M | **1.63M** | 1.53M | 0.55M |
-| Median per task | 692k | **162k** | 113k | 53k |
+| | Generator (379 tools) | **Mine: generic 3-tool** | NightSquawk: curated 3-tool | Community (37) | Hand-written (6) |
+|---|---|---|---|---|---|
+| Correct | 9/10 (+1 partial) | **8/10 (+1 partial)** | 10/10 | 2/10 (+5 partial) | 0/10 |
+| Input tokens, 10 tasks | 10.2M | **1.63M** | 1.61M | 1.53M | 0.55M |
+| Median per task | 692k | **162k** | 126k | 113k | 53k |
 
-**Where it failed.** H2 (open quotes, including expired ones): it trusted the API's `client_status=sent` filter, which leaves out
+**Update, same night: the curated 3-tool server won.** I ran NightSquawk's
+[invoiceninja-mcp-server](https://github.com/NightSquawk/invoiceninja-mcp-server) 0.0.1 (AGPL; 3 tools over a hand-curated
+catalogue of Invoice Ninja endpoints, with mutating calls flagged and guarded) on the same ten tasks:
+**10/10 correct, 1.61M input tokens, median 126k per task.** It got H2 and H4 right where mine didn't. Mine reads the raw spec,
+so it can be pointed at any API in minutes. Theirs adds Invoice Ninja-specific summaries and guards, and that extra care is
+what fixed the two misses. Lesson: the 3-tool shape gets you most of the way; curation per API is what closes the gap.
+
+**Where mine failed.** H2 (open quotes, including expired ones): it trusted the API's `client_status=sent` filter, which leaves out
 quotes whose valid-until date has passed, and it counted an archived quote. H4 (recurring invoices): it reported one frequency
 wrongly (every 3 months instead of every 2 weeks). The three write tasks (quote→invoice conversion; payment and undo; archive,
 delete and restore) all finished correctly and sent no email.
@@ -30,5 +37,5 @@ works on any API with an OpenAPI spec, without hand-written tools.
 **Limits.** n=10, one rep, one model, one API. Writes need care: the agent can call any operation, including destructive
 ones, so a production version should allow-list or confirm writes. Next: two more APIs and repeated runs.
 
-Per-run summaries: [invoiceninja-runs.jsonl](../data/invoiceninja-runs.jsonl) (variants LA = generator, LD = this server,
-LC = community, LB = hand-written).
+Per-run summaries: [invoiceninja-runs.jsonl](../data/invoiceninja-runs.jsonl) (variants LA = generator, LD = mine,
+LE = NightSquawk, LC = community, LB = hand-written).
