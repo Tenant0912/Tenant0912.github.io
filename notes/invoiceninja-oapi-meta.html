@@ -42,7 +42,10 @@ reads the OpenAPI spec and exposes three tools:
 <code>search_operations</code>, <code>describe_operation</code>,
 <code>call_operation</code>. The agent finds the endpoint, reads only
 that endpoint’s schema, then calls it. The tool list is about 400
-tokens. Auth headers come from env.</p>
+tokens. Auth headers come from env. The pattern is not mine: Stainless
+offers a “dynamic tools” mode built the same way, and a community
+Invoice Ninja server (NightSquawk) uses a 3-tool catalogue. That one is
+not in this benchmark yet. What’s new here is the measurement.</p>
 <p><strong>Same setup as note #1:</strong> Claude Code headless
 (Sonnet), one MCP server loaded, built-in tools off, self-hosted Invoice
 Ninja with seeded decoys (deleted/archived records, failed and refunded

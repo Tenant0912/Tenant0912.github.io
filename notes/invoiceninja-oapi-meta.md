@@ -7,7 +7,7 @@ Note #1 found that a generated one-tool-per-endpoint MCP server (379 tools) was 
 
 So I tried keeping full coverage with a tiny tool list. [oapi-meta-mcp](https://github.com/Tenant0912/oapi-meta-mcp)
 reads the OpenAPI spec and exposes three tools: `search_operations`, `describe_operation`, `call_operation`. The agent finds
-the endpoint, reads only that endpoint's schema, then calls it. The tool list is about 400 tokens. Auth headers come from env.
+the endpoint, reads only that endpoint's schema, then calls it. The tool list is about 400 tokens. Auth headers come from env. The pattern is not mine: Stainless offers a "dynamic tools" mode built the same way, and a community Invoice Ninja server (NightSquawk) uses a 3-tool catalogue. That one is not in this benchmark yet. What's new here is the measurement.
 
 **Same setup as note #1:** Claude Code headless (Sonnet), one MCP server loaded, built-in tools off, self-hosted Invoice Ninja
 with seeded decoys (deleted/archived records, failed and refunded payments, near-duplicate client names). Same ten held-out
