@@ -12,7 +12,7 @@ Does an AI agent actually get real work done with your MCP server, and what does
 The report gives correctness, dollars per task, failure transcripts, and how other servers for the same API compare.
 
 **The first five vendors get theirs free.** Write to tenant0931@gmail.com with your server's repo and a test environment I'm allowed to use.
-Paid reports and re-runs on each release will follow later; no payments are taken yet.
+Re-runs on each release, with write tasks and failure transcripts, are paid work; ask for a price.
 
 ## Field notes
 - [Baserow's built-in MCP server answered 7 of 7 held-out CRM questions, at the lowest cost of the servers tested](notes/baserow-mcp-scorecard.html) (2026-11-10)
